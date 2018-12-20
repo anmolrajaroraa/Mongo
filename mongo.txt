@@ -1,0 +1,158 @@
+Database - The need
+1. Store, organize and manage large amounts of data on a single platform
+2. Well-planned platform for data analysis
+3. Disciplined approach for data management
+4. Security, multiuser access control, backup and recovery
+
+Database categories
+1. OLTP (Online Transaction Processing) -> RDBMS, Real-time databases Eg- Oracle,MySQL
+- Stores real time data
+- ATM / retail transactions
+- Heterogeneous
+- Short term data
+2. OLAP (Online Analytical Processing) -> Data warehouse  Eg - Netezza, Sap Hana
+- Homogeneous
+- Long term data
+- Store processed data
+- Access to multiple RDBMS
+3. NewSQl -> NoSQL, Big Data
+- Stores all application data
+- No schema
+- handle big data requirements
+-Long term storage
+
+SQL - Structured Query Language
+-Used by data analysts to run analytical queries
+-Used regularly by database administrators 
+-Used to  add, update, delete, read so that we can retrieve data
+-Vertical scaling
+
+NoSQL
+- Non-relational
+- Distributed architecture
+- Open source
+- Horizontally scalable
+-Schema free
+-Easy replication
+-Simple API
+
+SQL - ACID property
+A - Atomicity - Entire transaction is either successful or fails completely, no partial execution
+C - Consistency - Integrity constraints in a way
+I - Isolation - Modification in a transaction will not be visible to any other transaction until the change is committed
+D - Durability - Committed data is persisted even after system failure as it is stored in non-volatile memory
+
+NoSQL- BASE property
+BA - Basic Availability - Database will be working almost all the time
+S - Soft-state - Data stores don't have to be consistent all the time
+E - Eventual consistency - Stores at some point of time are going to exhibit consistency
+
+CAP Theory (must-to-have properties)
+C - Consistency - after an update operation, all clients see the same data
+A - Availability - 100% service uptime guaranteed
+P - Partition tolerance - System continues to function even when the communication between servers is unreliable
+
+Features of NoSQL database-
+1. Supports massive number of concurrent users - thousands to millions
+2. Provides responsive experience to a globally distributed base of users
+3. Almost available all the time
+4. Quickly adapts to changing requirements such as updates and new features
+5. Handles semi-structured and unstructured data
+
+RDBMS			MongoDB
+
+Table/relation		Collection
+Tuple/row		Document
+Column/attribute	Field
+Table Join		Embedded documents
+Primary Key		Primary key
+Mysqld, Oracle server	Mongod - Mongo daemon
+Mysql			Mongo
+
+
+
+
+
+
+
+show dbs
+use mydb
+db.createCollection("myCollection")
+db.myCollection2.insert({"name":"Tom"})
+show collections
+db.myCollection2.find()
+db.myCollection2.drop()
+db.persons.insert(
+	{
+		"personId":"1",
+		"firstName":"Tom",
+		"lastName":"Jerry",
+		"age":"10"
+	}
+)
+db.persons.find()
+db.persons.insert(
+	[
+		{
+			"personId":"2",
+			"firstName":"Jim",
+			"lastName":"Jim",
+			"age":"15"
+		},
+		{
+			"personId":"3",
+			"firstName":"Tim",
+			"lastName":"Surname",
+			"age":"10"
+		}
+	]
+)
+db.persons.findOne()
+db.persons.find(
+	{"firstName":"Jim"}
+)
+db.persons.find(
+	{"age":"15"}
+)
+db.persons.find(
+	{"firstName":"Jim","age":"14"}
+)
+db.persons.find(
+	{$or : [{"firstName":"Jim","lastName":"Jimmy"},{"age":"10"}]}
+)
+db.persons.find(
+	{"firstName":"Jimmy", $or : [{"lastName":"Jim"},{"age":"15"}]}
+)
+db.persons.update(
+	{"_id" : ObjectId("5c1b3e0d7c9069e3fdfe7b4a")},
+	{$set:{"lastName":"Tom"}}
+)
+db.persons.update(
+	{"age":"10"},
+	{$set:{"age":"15"}}
+)
+db.persons.update(
+	{"age":"15"},
+	{$set:{"age":"10"}},
+	{multi:true}
+)
+db.persons.save(
+	{
+	  "_id" : ObjectId("5c1b3d1e7c9069e3fdfe7b49"),
+		"personId" : "1", 
+    "firstName" : "Jerry", 
+    "lastName" : "Jerry", 
+    "age" : "15"
+	}
+)
+db.persons.save(
+	{
+		"_id": ObjectId("101010101010101010101001"),
+		"personId":"5",
+		"firstName":"abc",
+		"lastName":"xyz",
+		"age":"50"
+	}
+)
+db.persons.drop()
+db.dropDatabase()
